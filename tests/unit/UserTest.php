@@ -2,27 +2,30 @@
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
+    public $user;
+
+    public function setUp()
+    {
+        $this->user = new \App\Models\User;
+    }
+
     public function testIfWeGetFirstName()
     {
-        $user = new \App\Models\User;
+        $this->user->setFirstName('saurass');
 
-        $user->setFirstName('saurass');
-
-        $this->assertEquals($user->getFirstName(), 'saurass');
+        $this->assertEquals($this->user->getFirstName(), 'saurass');
     }
 
     public function testForUserData()
     {
-        $user = new \App\Models\User;
+        $this->user->setFirstName('saurass');
+        $this->user->setLastName('sri');
 
-        $user->setFirstName('saurass');
-        $user->setLastName('sri');
-
-        $userData = $user->getUserData();
+        $userData = $this->user->getUserData();
 
         $this->assertArrayHasKey('firstname', $userData);
         $this->assertArrayHasKey('lastname', $userData);
 
-        $this->assertEquals($user->getFullName(), 'saurass sri');
+        $this->assertEquals($this->user->getFullName(), 'saurass sri');
     }
 }
